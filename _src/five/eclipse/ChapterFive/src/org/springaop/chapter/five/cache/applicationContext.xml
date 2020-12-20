@@ -1,0 +1,46 @@
+﻿<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:aop="http://www.springframework.org/schema/aop"
+xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+	
+	<bean id="dummy" class="org.springaop.chapter.five.cache.DummyClass"/>
+	
+	<aop:config>
+		<!--  Pointcuts -->
+		<aop:pointcut id="readOperation"
+				expression="execution(* org.springaop.chapter.five.cache.DummyClass.get*(..))" />
+		
+		<aop:pointcut id="exitOperation"
+				expression="execution(void org.springaop.chapter.five.cache.DummyClass.exit())" />	
+		
+		<!-- Aspects -->			
+		<aop:aspect id="dummyCacheAspect" ref="rockerCacheAspect">
+			<aop:around pointcut-ref="readOperation" method="cacheObject" />
+			<aop:after pointcut-ref="exitOperation" method="flush" />
+		</aop:aspect>
+	</aop:config>		
+	
+	<bean id="rockerCacheAspect" class="org.springaop.chapter.five.cache.CacheAspect" >
+		<property name="cache">
+			<bean id="bandCache" parent="cache">
+				<property name="cacheName" value="methodCache" />
+			</bean>
+		</property>
+	</bean>		
+	
+	<!-- CACHE config  -->
+	
+	<bean id="cache" abstract="true"
+		class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+		<property name="cacheManager" ref="cacheManager" />
+	</bean>
+	
+	<bean id="cacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:org/springaop/chapter/five/cache/ehcache.xml" />
+	</bean>
+	
+</beans>

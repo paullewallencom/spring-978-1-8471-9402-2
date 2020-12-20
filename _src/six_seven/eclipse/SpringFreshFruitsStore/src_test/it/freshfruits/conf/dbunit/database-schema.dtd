@@ -1,0 +1,44 @@
+<!ELEMENT dataset (
+    customers*,
+    fruittype*,
+    orderitems*,
+    orders*)>
+
+<!ELEMENT customers EMPTY>
+<!ATTLIST customers
+    id CDATA #REQUIRED
+    name CDATA #REQUIRED
+    street CDATA #IMPLIED
+    city CDATA #IMPLIED
+    state CDATA #IMPLIED
+    email CDATA #IMPLIED
+    fax CDATA #IMPLIED
+    mobile CDATA #IMPLIED
+    phone CDATA #IMPLIED
+    enabled CDATA #IMPLIED
+>
+
+<!ELEMENT fruittype EMPTY>
+<!ATTLIST fruittype
+    id CDATA #REQUIRED
+    flavour CDATA #IMPLIED
+    color CDATA #IMPLIED
+    location CDATA #REQUIRED
+    name CDATA #REQUIRED
+    price CDATA #REQUIRED
+>
+
+<!ELEMENT orderitems EMPTY>
+<!ATTLIST orderitems
+    id_order CDATA #REQUIRED
+    id_fruit CDATA #REQUIRED
+    quantity CDATA #REQUIRED
+>
+
+<!ELEMENT orders EMPTY>
+<!ATTLIST orders
+    id CDATA #REQUIRED
+    date CDATA #REQUIRED
+    id_customer CDATA #REQUIRED
+>
+

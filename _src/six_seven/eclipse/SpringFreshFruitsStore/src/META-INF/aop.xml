@@ -1,0 +1,23 @@
+<!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" 
+"http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+<weaver options="-showWeaveInfo 
+-XmessageHandlerClass:org.springframework.aop.aspectj.AspectJWeaverMessageHandler">
+	<!-- only weave classes in our application-specific packages -->
+	<include within="it.freshfruits.domain.entity.*"/>
+	<include within="it.freshfruits.domain.factory.*"/>
+	<include within="it.freshfruits.domain.service.*"/>
+	<include within="it.freshfruits.domain.vo.*"/>
+	<include within="it.freshfruits.application.repository.*"/>
+	<include within="it.freshfruits.ui.*"/>
+	<exclude within="it.freshfruits.aspect.*"/>
+</weaver>
+<!-- Be careful, those Aspects lose injected 
+	properties (AspectJ ignore Spring at LWT), 
+	otherwise consider aspect xml definition -->
+<aspects>
+        <aspect name="it.freshfruits.aspect.ConcurrentAspect" />
+        <aspect name="it.freshfruits.aspect.LogManagedAspect" />
+        <aspect name="it.freshfruits.aspect.TimeExecutionManagedAspect" />       
+</aspects>
+</aspectj>

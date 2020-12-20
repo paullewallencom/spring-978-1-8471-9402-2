@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" output="output_test" path="src_test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/cglib-nodep-2.2.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/ehcache-1.5.0.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/joda-time-1.5.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/sitemesh-2.3.jar"/>
+	<classpathentry kind="lib" path="libExt/dbunit-2.2.jar"/>
+	<classpathentry kind="lib" path="libExt/junit-4.5.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/asm-2.2.3.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/asm-commons-2.2.3.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/asm-util-2.2.3.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/backport-util-concurrent-3.0.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/jsr107cache-1.0.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/aspectjrt-1.6.2.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/aspectjweaver-1.6.2.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/ibatis-2.3.4.726.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/spring-security-core-2.0.4.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/spring-security-core-tiger-2.0.4.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/common-annotations.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/p6spy.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/postgresql-8.3-603.jdbc3.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/commons-codec.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/commons-io.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/commons-pool.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/jstl.jar"/>
+	<classpathentry kind="lib" path="libExt/servlet-api.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/spring.jar"/>
+	<classpathentry kind="lib" path="libExt/spring-agent.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/spring-aspects.jar"/>
+	<classpathentry kind="lib" path="libExt/spring-test.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/spring-webmvc.jar"/>
+	<classpathentry kind="lib" path="www/WEB-INF/lib/standard.jar"/>
+	<classpathentry kind="lib" path="libExt/commons-dbcp.jar"/>
+	<classpathentry kind="output" path="www/WEB-INF/classes"/>
+</classpath>

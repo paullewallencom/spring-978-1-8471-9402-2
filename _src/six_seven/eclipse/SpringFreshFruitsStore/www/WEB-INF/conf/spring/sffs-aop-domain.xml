@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xmlns:p="http://www.springframework.org/schema/p"
+xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context-2.5.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+    <!--
+        Enable @Configurable Annotation in conjunction with LTW jvm:
+        (test) -javaagent:<path>/spring-agent.jar 
+        (tomcat) <tomcat6>/lib/spring-tomcat-weaver.jar-->
+    <context:load-time-weaver /> <!-- enable the use of META-INF/aop.xml -->
+    <context:spring-configured />
+    <context:annotation-config />
+
+
+    <!-- Aspects  -->
+        
+    <bean id="cacheAspect" class="it.freshfruits.aspect.CacheAspect"/>
+
+    <aop:config proxy-target-class="true">
+        <aop:pointcut id="customerFactoryReadOperation" expression="execution(* it.freshfruits.domain.factory.CustomerFactoryImpl.get*(..))" /> 
+        <aop:pointcut id="customerRepoReadOperation" expression="execution(* it.freshfruits.application.repository.CustomerRepositoryImpl.select*(..))" />              
+        <aop:pointcut id="customerRepoInsertOperation" expression="execution(* it.freshfruits.application.repository.CustomerRepositoryImpl.insert*(..))" />            
+        <aop:pointcut id="customerRepoUpdateOperation" expression="execution(* it.freshfruits.application.repository.CustomerRepositoryImpl.update*(..))" />        
+        <aop:pointcut id="customerRepoDisableOperation" expression="execution(* it.freshfruits.application.repository.CustomerRepositoryImpl.disable*(..))" />                          
+        <aop:pointcut id="fruitReadOperation" expression="execution(* it.freshfruits.application.repository.FruitTypeRepositoryImpl.get*(..))" />
+        <aop:pointcut id="fruitInsertOperation" expression="execution(* it.freshfruits.application.repository.FruitTypeRepositoryImpl.insert*(..))" />
+        <aop:pointcut id="fruitUpdateOperation" expression="execution(* it.freshfruits.application.repository.FruitTypeRepositoryImpl.update*(..))" />  
+
+        <aop:aspect id="customerAspect" ref="customerCacheAspect">
+            <aop:around pointcut-ref="customerFactoryReadOperation" method="invoke" />
+            <aop:around pointcut-ref="customerRepoReadOperation" method="invoke" />
+            <aop:before pointcut-ref="customerRepoInsertOperation" method="flush" />
+            <aop:before pointcut-ref="customerRepoUpdateOperation" method="flush" />
+            <aop:before pointcut-ref="customerRepoDisableOperation" method="flush" />   
+        </aop:aspect>
+        
+        <aop:aspect id="fruitAspect" ref="fruitCacheAspect">
+            <aop:around pointcut-ref="fruitReadOperation" method="invoke" />
+            <aop:before pointcut-ref="fruitInsertOperation" method="flush" />
+            <aop:before pointcut-ref="fruitUpdateOperation" method="flush" />
+        </aop:aspect>
+        
+    </aop:config>
+    
+    <!-- Aspects with schema -->
+    
+    <bean id="customerCacheAspect" class="it.freshfruits.aspect.CacheAspect" >
+        <property name="cache">
+            <bean id="customerCache" parent="cache">
+                <property name="cacheName" value="customerCache" />
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="fruitCacheAspect" class="it.freshfruits.aspect.CacheAspect" >
+        <property name="cache">
+            <bean id="fruitCache" parent="cache">
+                <property name="cacheName" value="fruitCache" />
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="customer" scope="prototype" class="it.freshfruits.domain.entity.CustomerImpl"
+        p:orderRepository-ref="orderRepository" p:customerRepository-ref="customerRepository"/>
+    
+    <bean id="fruitType"  scope="prototype" class="it.freshfruits.domain.entity.FruitTypeImpl"/>
+    
+    <bean id="order"  scope="prototype" class="it.freshfruits.domain.entity.OrderImpl"/>
+        
+    <bean id="supplyService" class="it.freshfruits.domain.service.SupplyServiceImpl" init-method="init"/>
+        
+</beans>

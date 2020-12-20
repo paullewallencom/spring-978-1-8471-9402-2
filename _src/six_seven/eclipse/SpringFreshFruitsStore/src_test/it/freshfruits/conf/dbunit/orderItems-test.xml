@@ -1,0 +1,4 @@
+<!DOCTYPE dataset SYSTEM "src_test/it/freshfruits/conf/dbunit/database-schema.dtd">
+<dataset>
+  <orderitems id_order="34" id_fruit="1" quantity="8"/>
+</dataset>

@@ -1,0 +1,21 @@
+﻿<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="exceptionTarget" class="org.springaop.chapter.one.schema.throwsadvice.ExceptionTarget" />
+	
+	<aop:config>
+		<aop:aspect ref="afterThrowing">
+			<aop:after-throwing method="afterErrorMethod"
+				pointcut="execution(* errorMethod(..)) throws Exception" />
+		</aop:aspect>
+	</aop:config>
+	
+	<bean id="afterThrowing"
+		class="org.springaop.aspects.schema.SpringAopAspectAfterThrowingExample" />
+
+</beans>

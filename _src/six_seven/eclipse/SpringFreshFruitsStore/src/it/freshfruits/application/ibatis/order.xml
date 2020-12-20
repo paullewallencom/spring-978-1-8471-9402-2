@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias type="it.freshfruits.domain.vo.OrderMap" alias="orderVO" />
+	<typeAlias type="it.freshfruits.domain.vo.OrderItemMap" alias="orderItemVO" />
+
+	<resultMap class="orderVO" id="resultOrder">
+		<result column="id" property="id" jdbcType="BIGINT" />
+		<result column="id_customer" property="idCustomer" jdbcType="BIGINT" />
+		<result column="date" property="dateOrder" jdbcType="DATE" />
+		<result  property="orderItems" select="selectOrderItems" column="id"/>
+	</resultMap>
+
+	<resultMap class="orderItemVO" id="resultOrderItem">
+		<result column="id_order" property="idOrder" jdbcType="BIGINT" />
+		<result column="quantity" property="quantity" jdbcType="INT" />
+		<result property="fruit" select="selectFruitTypeVO" column="id_fruit"/>
+	</resultMap>
+
+
+	<!--  S E L E C T -->
+	
+	<select id="selectKeyOrder" resultClass="int">
+		select nextval('orders_id_seq') ;
+	</select>
+
+
+	<select id="selectOrderVO" resultMap="resultOrder">
+		SELECT id, id_customer, date FROM orders WHERE id = #id# AND id_customer = #idCustomer# ;
+	</select>
+	
+	
+	<select id="selectOrdersVO" resultMap="resultOrder">
+		SELECT id, id_customer, date FROM orders WHERE id_customer = #value# ;
+	</select>
+	
+	
+	<select id="selectOrderItems" resultMap="resultOrderItem">
+		SELECT id_fruit, id_order, quantity FROM orderitems WHERE id_order = #value# ;
+	</select>
+	
+	
+	<!--  I N S E R T -->
+
+	<insert id="insertOrderVO" parameterClass="orderVO">
+		<selectKey keyProperty="id" resultClass="int">
+			select nextval('orders_id_seq')
+	    </selectKey>
+		INSERT INTO orders (id, id_customer, date) VALUES
+		(#id:BIGINT#, #idCustomer:BIGINT#, #dateOrder:DATE#) ;
+	</insert>
+	
+	
+	<insert id="insertOrderItemVO" parameterClass="orderItemVO">
+		INSERT INTO orderitems (id_order, id_fruit, quantity) VALUES
+		(#idOrder:BIGINT#, #fruit.id:BIGINT#, #quantity:INT#) ;
+	</insert>
+
+
+	<!--  U P D A T E -->
+
+	<update id="updateOrderVO" parameterClass="orderVO">
+		UPDATE orders SET 		
+		date = #dateOrder:DATE#
+		WHERE id = #id:BIGINT# AND id_customer = #idCustomer:BIGINT# ;
+	</update>
+
+
+</sqlMap>

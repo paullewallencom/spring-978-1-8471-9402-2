@@ -1,0 +1,31 @@
+jars required:
+aspectjrt-1.6.2.jar
+aspectjweaver-1.6.2.jar
+cglib-nodep-2.2.jar
+log4j-1.2.15.jar
+ehcache-1.5.0.jar 
+jsr107cache-1.0.jar
+backport-util-concurrent-3.0.jar
+spring-security-core-2.0.4.jar
+spring-security-core-tiger-2.0.4.jar
+commons-logging.jar
+spring-aspects.jar
+spring.jar (contain all modules 2.5.6 or upward)
+
+
+-------------
+   sources
+-------------
+
+aspectjrt-1.6.2.jar : spring-framework-x-with-dependencies/lib/aspectj/aspectjrt-1.6.2.jar
+aspectjweaver-1.6.2.jar : spring-framework-x-with-dependencies/lib/aspectj/aspectjweaver-1.6.2.jar
+cglib-nodep-2.2.jar : http://cglib.sourceforge.net/
+log4j-1.2.15.jar : spring-framework-x-with-dependencies/lib/log4j/log4j-1.2.15.jar
+ehcache-1.5.0.jar : http://sourceforge.net/project/showfiles.php?group_id=93232&package_id=98840&release_id=612959
+jsr107cache-1.0.jar : (ehcache 1.5.0 packaging) http://sourceforge.net/project/showfiles.php?group_id=93232&package_id=98840&release_id=612959
+backport-util-concurrent-3.0.jar : (ehcache 1.5.0 packaging) http://sourceforge.net/project/showfiles.php?group_id=93232&package_id=98840&release_id=612959 
+spring-security-core-2.0.4.jar : (springsecurity 2.0.4 packaging) http://static.springframework.org/spring-security/site/index.html
+spring-security-core-tiger-2.0.4.jar : (springsecurity 2.0.4 packaging)  http://static.springframework.org/spring-security/site/index.html
+commons-logging.jar : spring-framework-x-with-dependencies/lib/jakarta-commons/commons-logging.jar (1.1 or upward)
+spring-aspects.jar : spring-framework-x-with-dependencies/weaving/spring-aspect.jar
+spring.jar : spring-framework-x-with-dependencies/weaving/spring.jar

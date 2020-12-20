@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:p="http://www.springframework.org/schema/p"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/tx 
+http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<context:component-scan base-package="it.freshfruits" />
+	<context:property-placeholder location="WEB-INF/conf/spring/config.properties" />
+
+	<bean id="cache" abstract="true" class="org.springframework.cache.ehcache.EhCacheFactoryBean"
+		p:cacheManager-ref="cacheManager" />
+	
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+		p:configLocation="classpath:ehcache.xml" />
+
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
+		p:basename="it.freshfruits.messages.msg"/>
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:viewClass="org.springframework.web.servlet.view.JstlView" p:prefix="WEB-INF/jsp/" p:suffix=".jsp"/>
+
+	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">errors/exception</prop>
+			</props>
+		</property>
+	</bean>
+	        
+	<bean name="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"
+		p:jndiName="java:comp/env/jdbc/sffs"/>        
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" 
+	   p:url="${jdbc.url}" p:username="${jdbc.username}" p:password="${jdbc.password}" 
+	   p:driverClassName="${jdbc.production.driver}" p:maxIdle="3" p:maxWait="50" p:removeAbandoned="true"
+	   p:removeAbandonedTimeout="550" p:logAbandoned="true" p:maxActive="20"/> -->
+
+    <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"
+		p:dataSource-ref="dataSource" p:configLocation="WEB-INF/conf/ibatis/sffs-sqlMapConfig.xml"/>
+        
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+        p:dataSource-ref="dataSource"/>        
+  	  	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="insertOrder" propagation="REQUIRED" rollback-for="OrderItemsException"/>
+			<tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>	
+	    	<tx:method name="disable*" propagation="REQUIRED" rollback-for="Exception"/>	
+			<tx:method name="*" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut id="repoOperations" expression="execution(* it.freshfruits.application.repository.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="repoOperations"/>		
+	</aop:config>
+	
+	<!-- JMX -->
+	<bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean"
+		p:locateExistingServerIfPossible="true"/>
+	
+	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter"
+		p:assembler-ref="assembler" p:namingStrategy-ref="namingStrategy" p:autodetect="true"/>
+
+	<bean id="jmxAttributeSource" class="org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource"/>
+
+	<bean id="assembler" class="org.springframework.jmx.export.assembler.MetadataMBeanInfoAssembler"
+		p:attributeSource-ref="jmxAttributeSource"/>
+
+	<bean id="namingStrategy" class="org.springframework.jmx.export.naming.MetadataNamingStrategy"
+		p:attributeSource-ref="jmxAttributeSource"/>
+
+</beans>

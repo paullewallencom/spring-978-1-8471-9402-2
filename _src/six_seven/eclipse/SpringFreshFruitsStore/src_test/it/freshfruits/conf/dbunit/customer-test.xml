@@ -1,0 +1,9 @@
+<!DOCTYPE dataset SYSTEM "src_test/it/freshfruits/conf/dbunit/database-schema.dtd">
+<dataset>
+	<customers id="26" name="max" street="Viale Europa" city="Cagliari"
+		state="Italy" email="foo[at]yahoo[dot]it" fax="" mobile="3391234567"
+		phone="+39070123456" enabled="true" />
+	<customers id="27" name="matt" street="Viale Europa 2" city="Cagliari"
+		state="Italy" email="foo[at]yahoo[dot]com" fax="" mobile="3391234568"
+		phone="+39070123458" enabled="true" />
+</dataset>

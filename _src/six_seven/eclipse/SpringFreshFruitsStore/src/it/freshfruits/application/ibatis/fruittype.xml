@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+	<typeAlias type="it.freshfruits.domain.vo.FruitMap" alias="fruit"/>
+
+  	<resultMap class="fruit" id="resultFruit">
+  		<result column="id" property="id" jdbcType="BIGINT" />
+    	<result column="name" property="name" jdbcType="VARCHAR" />
+    	<result column="color" property="color" jdbcType="VARCHAR" />
+    	<result column="flavour" property="flavour" jdbcType="VARCHAR" />
+   		<result column="location" property="location" jdbcType="VARCHAR" />
+   		<result column="price" property="price" jdbcType="FLOAT" />
+  	</resultMap>
+  
+  	<!--  S E L E C T -->
+
+  	<select id="selectFruitTypeVO" resultMap="resultFruit">
+    	SELECT id, name, color, flavour, location, price
+        FROM fruittype
+    	WHERE id = #value# ;
+  	</select>
+ 
+   	<select id="selectFruits" resultMap="resultFruit">
+    	 SELECT id, name, color, flavour, location, price
+         FROM fruittype
+         ORDER BY name
+		 LIMIT $limit$ OFFSET $offset$ ;
+   	</select>
+
+   	<select id="selectFruitTypeNumber" resultClass="int">
+      	SELECT count(*) from fruittype ;
+   	</select>
+<!-- 
+  -->
+  	<!--  I N S E R T 
+
+  	<insert id="insertUtente" parameterClass="utente">
+		<selectKey keyProperty="id" resultClass="long">
+			select nextval('utenti_id_seq')
+	    </selectKey>
+    	INSERT into utenti (id, tessera, centro, corris, email, nominativo, indirizzo,
+      	cap, citta, provincia, cellulare, telefono_casa, telefono_domicilio,
+      	telefono_lavoro, gruppo)
+    	VALUES (#id#, #tessera:VARCHAR#, #centro:BIGINT#, #corris:BIT#,
+      	#email:VARCHAR#, #nominativo:VARCHAR#, #indirizzo:VARCHAR#,
+      	#cap:VARCHAR#, #citta:VARCHAR#, #provincia:VARCHAR#, #cellulare:VARCHAR#,
+      	#telefonoCasa:VARCHAR#, #telefonoDomicilio:VARCHAR#,
+      	#telefonoLavoro:VARCHAR#, #idGruppo:BIGINT#) ;
+  	</insert>-->
+
+
+  	<!--  U P D A T E-->
+
+  	<update id="updateFruitType" parameterClass="fruit">
+    	UPDATE fruittype
+    	SET name = #name:VARCHAR#,
+      	color = #color:VARCHAR#,
+      	flavour = #flavour:VARCHAR#,
+      	location = #location:VARCHAR#
+      	price = #price:FLOAT#
+    	WHERE id = #id:BIGINT# ;
+  	</update>
+
+   
+
+
+    <!--  D E L E T E -->
+
+    <delete id="deleteFruitType" parameterClass="int">
+   		DELETE
+    	FROM fruittype
+    	WHERE id = #id# ;
+  	</delete>
+
+
+</sqlMap>

@@ -1,0 +1,47 @@
+﻿<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/security
+http://www.springframework.org/schema/security/spring-security-2.0.2.xsd">
+
+	<bean id="accessDecisionManager" class="org.springframework.security.vote.AffirmativeBased">
+		<property name="decisionVoters">
+			<list>
+				<bean class="org.springframework.security.vote.RoleVoter" />
+				<bean class="org.springframework.security.vote.AuthenticatedVoter" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Securing Methods with Security Interceptor -->
+
+	<bean class="org.springaop.chapter.five.security.FooServiceImpl">
+		<security:intercept-methods
+			access-decision-manager-ref="accessDecisionManager">
+			<security:protect method="org.springaop.chapter.five.security.FooService.getBalance"
+				access="ROLE_USER" />
+			<security:protect
+				method="org.springaop.chapter.five.security.FooService.setBalanceAccount" 
+				access="ROLE_ACCOUNTING,ROLE_ADMIN" />
+			<security:protect method="org.springaop.chapter.five.security.FooService.suspendAccount"
+				access="ROLE_ADMIN" />
+		</security:intercept-methods>
+	</bean>
+
+	<!-- Securing Methods with Pointcut-->
+
+	<global-method-security
+		access-decision-manager-ref="accessDecisionManager">
+		<protect-pointcut
+			expression="execution(* org.springaop.chapter.five.security.FooService.getBalance(..))"
+			access="ROLE_USER" />
+		<protect-pointcut
+			expression="execution(* org.springaop.chapter.five.security.FooService.set*(..))"
+			access="ROLE_ACCOUNTING,ROLE_ADMIN" />
+		<protect-pointcut
+			expression="execution(* org.springaop.chapter.five.security.FooService.suspendAccount(..))"
+			access="ROLE_ADMIN" />
+	</global-method-security>
+
+</beans>

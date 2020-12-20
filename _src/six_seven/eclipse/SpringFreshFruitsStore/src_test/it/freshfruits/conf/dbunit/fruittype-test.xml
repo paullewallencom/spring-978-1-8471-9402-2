@@ -1,0 +1,7 @@
+<!DOCTYPE dataset SYSTEM "src_test/it/freshfruits/conf/dbunit/database-schema.dtd">
+<dataset>
+  <fruittype id="1" flavour="sweet" color="yellow" location="italy" name="lemon" price="1.2" />
+  <fruittype id="2" flavour="sweet" color="orange" location="italy" name="orange" price="0.1"/>
+  <fruittype id="3" flavour="sweet" color="yellow" location="costa rica" name="banana" price="0.1" />
+  <fruittype id="4" flavour="sweet" color="yellow" location="italy" name="kiwi" price="0.1" />
+</dataset>

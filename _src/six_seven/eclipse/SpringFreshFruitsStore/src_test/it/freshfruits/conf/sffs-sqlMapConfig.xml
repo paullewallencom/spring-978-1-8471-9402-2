@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig
+    PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+<settings
+	cacheModelsEnabled="true"
+	enhancementEnabled="true"
+	lazyLoadingEnabled="false"
+	maxRequests="64"
+	maxSessions="20"
+	maxTransactions="8"
+	useStatementNamespaces="false"
+	classInfoCacheEnabled="true"
+	errorTracingEnabled="true"
+	statementCachingEnabled="true"
+/>
+
+    <!-- Postgresql -->
+    <sqlMap resource="it/freshfruits/application/ibatis/fruittype.xml"/>
+    <sqlMap resource="it/freshfruits/application/ibatis/customer.xml"/>
+    <sqlMap resource="it/freshfruits/application/ibatis/order.xml"/>
+</sqlMapConfig>
+

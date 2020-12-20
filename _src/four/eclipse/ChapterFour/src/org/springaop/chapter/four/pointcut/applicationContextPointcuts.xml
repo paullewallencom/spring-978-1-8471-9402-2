@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	
+	<aop:config>
+		<aop:pointcut expression="execution (public * *(..))" id="allPublicMethod"/>
+		<aop:pointcut expression="within(org.springaop.web..*)" id="inWebLayer"/>
+		<aop:pointcut expression="within(org.springaop.service..*)" id="inServiceLayer"/>
+		<aop:pointcut expression="within(org.springaop.dao..*)" id="inResourceLayer"/>
+		<aop:pointcut expression="execution(* swim*(..)) or execution(* play*(..)) or execution(* run(..))" id="goodTimesOnTheBeach"/>
+		<aop:pointcut expression="execution(* *())" id="allMethodsWithoutArguments"/>
+		<aop:pointcut expression="execution(* *(..))" id="allMethodsWithOneOrMoreArgumentRegardlessOfType"/>
+		<aop:pointcut expression="execution(* *(java.lang.Integer, java.lang.String))" id="allMethodsWithTwoArgumentFirstIntegerSecondString"/>
+		<aop:pointcut expression="execution(* *(java.lang.Integer,..))" id="allMethodsWithFirstArgumentOfTypeIntegerAndZeroOrMoreOtherArguments"/>
+		<aop:pointcut expression="execution(* *(*,java.lang.Integer,..))" id="allMethodsWithSecondArgumentOfTypeIntegerAndZeroOrMoreOtherArguments"/>
+		<aop:pointcut expression="args(java.util.Hashtable)" id="methodsWithHashtableInsteadOfMap"/>
+		<aop:pointcut expression="@args(*,java.lang.String)" id="methodsWithSecondArgumentsOfTypeString"/>
+		<aop:pointcut expression="execution (* get*(..))" id="methodsWithAllReturnType"/>
+		<aop:pointcut expression="execution (java.lang.Integer get*(..))" id="getterMethodsWithIntegerReturnType"/>
+		<aop:pointcut expression="execution (void set*(..))" id="setterMethods"/>
+		<aop:pointcut expression="execution (* *(..) throws java.lang.IOException)" id="methodsThatThrowsIoExceptions"/>
+		<aop:pointcut expression="execution (* *(..) throws java.lang.IllegalThreadStateException)" id="methodsThatThrowsIllegalThreadStateException"/>
+		<aop:pointcut expression="@annotation (org.springaop.pointcuts.SensitiveOperation)" id="methodsWithSensitiveOperationAnnotation"/>
+		<aop:pointcut expression="@within(org.springaop.pointcuts.SensitiveOperation)" id="methodsWithSensitiveOperationWithinAnnotation"/>
+		<aop:pointcut expression="execution(void set(..) and @args(org.company.Classified)" id="compositionExecutionAndArgs"/>
+		
+		<aop:aspect>
+			<aop:before pointcut="@annotation(operation)" arg-names="SensitiveOperation operation"//>
+		</aop:aspect>
+		<!--<aop:aspect id="myAspect" ref="exampleBean"></aop:aspect>
+	--></aop:config>
+	
+
+	
+</beans>

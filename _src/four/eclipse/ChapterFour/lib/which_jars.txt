@@ -1,0 +1,21 @@
+jars required:
+aspectjrt-1.6.2.jar
+aspectjweaver-1.6.2.jar
+cglib-nodep-2.2.jar
+log4j-1.2.15.jar
+commons-logging.jar
+spring.jar (contain all modules 2.5.6 or upward)
+spring-aspects.jar
+spring-agent.jar
+
+
+-------------
+   sources
+-------------
+aspectjrt-1.6.2.jar : spring-framework-x-with-dependencies/lib/aspectj/aspectjrt-1.6.2.jar
+aspectjweaver-1.6.2.jar : spring-framework-x-with-dependencies/lib/aspectj/aspectjweaver-1.6.2.jar
+cglib-nodep-2.2.jar : http://cglib.sourceforge.net/
+log4j-1.2.15.jar : spring-framework-x-with-dependencies/lib/log4j/
+commons-logging.jar : spring-framework-x-with-dependencies/lib/jakarta-commons/commons-logging.jar (1.1 or upward)
+spring-aspects.jar : spring-framework-x-with-dependencies/weaving/spring-aspect.jar
+spring-agent.jar : spring-framework-x-with-dependencies/weaving/spring-agent.jar

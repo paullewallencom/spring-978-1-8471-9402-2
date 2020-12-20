@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias type="it.freshfruits.domain.entity.CustomerImpl" alias="customer" />
+	<typeAlias type="it.freshfruits.domain.vo.CustomerMap" alias="customerVO" />
+<!-- 
+	<resultMap class="customerVO" id="resultCustomerVO">
+		<result column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="city" property="city" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="state" property="state" jdbcType="VARCHAR" />
+		<result column="street" property="street" jdbcType="VARCHAR" />
+		<result column="fax" property="faxNumber" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobilePhoneNumber" 
+			jdbcType="VARCHAR" />
+		<result column="phone" property="phoneNumber" 
+			jdbcType="VARCHAR" />
+	</resultMap>-->
+	
+	<resultMap class="customerVO" id="resultCustomerVO">
+		<result column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="city" property="city" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="fax" property="faxNumber" jdbcType="VARCHAR" />
+		<result column="state" property="state" jdbcType="VARCHAR" />
+		<result column="street" property="street" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobilePhoneNumber" 
+			jdbcType="VARCHAR" />
+		<result column="phone" property="phoneNumber" 
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<!--  S E L E C T -->
+	
+	<select id="selectKeyCustomer" resultClass="int">
+		select nextval('customers_id_seq') ;
+	</select>
+
+	<select id="selectCustomerVO" resultMap="resultCustomerVO">
+		SELECT id, name, city, email, fax, mobile,
+		phone, state, street FROM customers WHERE id = #value# ;
+	</select>
+	
+	<select id="selectCustomers" resultMap="resultCustomerVO">
+		SELECT id, name, city, email, fax, mobile,
+		phone, state, street FROM customers WHERE enabled = true;
+	</select>
+
+	<select id="selectIdCustomerByName" resultClass="int">
+		SELECT id FROM customers WHERE name = #value# ;
+	</select>
+
+	<!--  I N S E R T -->
+
+	<insert id="insertCustomerVO" parameterClass="customerVO">
+		<selectKey keyProperty="id" resultClass="int">
+			select nextval('customers_id_seq')
+	    </selectKey>
+		INSERT INTO customers (id, name, city, email, fax,
+		mobile, phone, state, street) VALUES
+		(#id:BIGINT#, #name:VARCHAR#, #city:VARCHAR#, #email:VARCHAR#,
+		#faxNumber:VARCHAR#, #mobilePhoneNumber:VARCHAR#,
+		#phoneNumber:VARCHAR#, #address.state:VARCHAR#, #address.street:VARCHAR#) ;
+	</insert>
+
+
+	<!--  U P D A T E -->
+
+	<update id="updateCustomerVO" parameterClass="customerVO">
+		UPDATE customers SET 
+		name = #name:VARCHAR#, 
+		city = #city:VARCHAR#, 
+		email = #email:VARCHAR#, 
+		fax = #faxNumber:VARCHAR#, 
+		mobile = #mobilePhoneNumber:VARCHAR#,
+		phone = #phoneNumber:VARCHAR#,
+		state = #state:VARCHAR#,
+		street = #street:VARCHAR#
+		WHERE id = #id:BIGINT# AND enabled = true;
+	</update>
+	
+	<update id="disableCustomer" parameterClass="int">
+		UPDATE customers SET 
+		enabled = false
+		WHERE id = #id:BIGINT# ;
+	</update>
+	
+	<update id="enableCustomer" parameterClass="int">
+		UPDATE customers SET 
+		enabled = true
+		WHERE id = #id:BIGINT# ;
+	</update>
+
+
+	<!--  D E L E T E -->
+
+	<delete id="deleteCustomerVO" parameterClass="int">
+		DELETE FROM customers WHERE id = #value# ;
+	</delete>
+
+</sqlMap>

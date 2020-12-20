@@ -1,0 +1,42 @@
+--------------------------------------
+   jars required in www/WEB-INF/lib
+--------------------------------------
+cglib-nodep-2.2.jar : http://cglib.sourceforge.net/
+commons-logging.jar : spring-framework-x-with-dependencies/lib/jakarta-commons/
+commons-pool.jar : spring-framework-x-with-dependencies/lib/jakarta-commons/
+commons-codec.jar : spring-framework-x-with-dependencies/lib/jakarta-commons/
+commons-io.jar : spring-framework-x-with-dependencies/lib/jakarta-commons/
+commons-dbcp.jar : spring-framework-x-with-dependencies/lib/jakarta-commons/
+joda-time.jar : http://joda-time.sourceforge.net/
+jstl.jar : spring-framework-x-with-dependencies/lib/j2ee/
+standard.jar : spring-framework-x-with-dependencies/lib/jakarta-taglibs/
+sitemesh.jar : http://www.opensymphony.com/sitemesh/
+postgresql-8.3-603.jdbc3.jar : http://jdbc.postgresql.org/
+p6spy.jar : http://www.p6spy.com/
+asm-2.2.3.jar : spring-framework-x-with-dependencies/lib/asm/
+asm-util-2.2.3.jar : spring-framework-x-with-dependencies/lib/asm/
+asm-common-2.2.3.jar : spring-framework-x-with-dependencies/lib/asm/
+ehcache-1.5.0.jar : http://sourceforge.net/project/showfiles.php?group_id=93232&package_id=98840&release_id=612959
+jsr107cache-1.0.jar : (ehcache 1.5.0 packaging) http://sourceforge.net/project/showfiles.php?group_id=93232&package_id=98840&release_id=612959
+backport-util-concurrent-3.0.jar : (ehcache 1.5.0 packaging) http://sourceforge.net/project/showfiles.php?group_id=93232&package_id=98840&release_id=612959
+aspectjrt-1.6.2.jar : spring-framework-x-with-dependencies/lib/aspectj/
+aspectjweaver-1.6.2.jar : spring-framework-x-with-dependencies/lib/aspectj/
+ibatis-2.3.4.726.jar : spring-framework-x-with-dependencies/lib/ibatis/
+spring.jar : spring-framework-x-with-dependencies/dist/
+spring-webmvc.jar : spring-framework-x-with-dependencies/dist/modules/
+spring-aspects.jar : spring-framework-x-with-dependencies/weaving/
+spring-security-core-2.0.4.jar : (springsecurity 2.0.4 packaging) http://static.springframework.org/spring-security/site/index.html
+spring-security-core-tiger-2.0.4.jar : (springsecurity 2.0.4 packaging)  http://static.springframework.org/spring-security/site/index.html
+
+common-annotations.jar : spring-framework-x-with-dependencies/lib/j2ee
+log4j-1.2.15.jar : spring-framework-x-with-dependencies/lib/log4j/
+
+--------------------------------------
+   jars required /libExt
+--------------------------------------
+spring-agent.jar : spring-framework-x-with-dependencies/weaving/
+spring-test.jar : spring-framework-x-with-dependencies/dist/modules/
+commons-dbcp.jar : spring-framework-x-with-dependencies/lib/jakarta-commons/
+dbubit-2.2.jar : http://www.dbunit.org/
+junit-4.5.jar : http://junit.org/
+servlet-api.jar spring-framework-x-with-dependencies/lib/j2ee

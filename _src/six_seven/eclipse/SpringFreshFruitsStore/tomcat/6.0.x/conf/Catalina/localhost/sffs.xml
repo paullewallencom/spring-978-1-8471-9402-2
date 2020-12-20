@@ -1,0 +1,22 @@
+<Context docBase="<path_to>/SpringFreshFruitsStore/www/" debug="0">
+
+<Loader loaderClass="org.springframework.instrument.classloading.tomcat.TomcatInstrumentableClassLoader"
+	useSystemClassLoaderAsParent="false"/>
+
+<Resource name="jdbc/sffs" auth="Container" type="javax.sql.DataSource"
+            username="sffs"
+            password="sffs"
+            driverClassName="org.postgresql.Driver"
+            url="jdbc:postgresql://localhost:5432/sffs"
+            removeAbandoned="true"
+            removeAbandonedTimeout="60"
+            logAbandoned="true"
+            maxWait="500"
+            maxActive="20"
+            maxIdle="5"
+            minEvictableIdleTimeMillis="4000"
+            timeBetweenEvictionRunsMillis="5000"/>
+
+<Manager className="org.apache.catalina.session.PersistentManager" saveOnRestart="false"/>
+
+</Context>

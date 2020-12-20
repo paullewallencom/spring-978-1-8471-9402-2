@@ -1,0 +1,11 @@
+jars required:
+cglib-nodep-2.2.jar
+spring.jar (contain all modules 2.5.6 or upward)
+commons-logging.jar
+
+-------------
+   sources
+-------------
+cglib-nodep-2.2.jar : http://cglib.sourceforge.net/
+spring.jar : spring-framework-x-with-dependencies/dist/spring.jar (all modules)
+commons-logging.jar : spring-framework-x-with-dependencies/lib/jakarta-commons/commons-logging.jar (1.1 or upward)

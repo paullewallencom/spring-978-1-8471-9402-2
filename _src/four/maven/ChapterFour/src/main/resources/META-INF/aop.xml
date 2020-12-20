@@ -1,0 +1,12 @@
+<!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" 
+"http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+<weaver options="-showWeaveInfo 
+-XmessageHandlerClass:org.springframework.aop.aspectj.AspectJWeaverMessageHandler">
+	<include within="org.springaop.chapter.four.introduction.*"/>
+	<include within="org.springaop.chapter.four.configurable.*"/>
+</weaver>
+<aspects>    
+	<aspect name="org.springaop.chapter.four.introduction.ParallelepipedIntroduction"/>
+</aspects>
+</aspectj>
